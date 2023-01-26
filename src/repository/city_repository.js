@@ -7,6 +7,26 @@ async function createCity(name){
         console.log("Got error in error handling of createCity");
     }
 }
+async function updateCity(cityId,data){
+    try{
+        const object=await City.update(data,{
+            where:{
+                id:cityId
+            }
+        })
+        return object;
+    }catch(error){
+        console.log("Got error in error handling of updateCity")
+    }
+}
+async function findCity(cityId){
+    try{
+        const object=await City.findByPk(cityId);
+        return object;
+    }catch(error){
+        console.log("Got error in error handling of findCity")
+    }
+}
 async function deleteCity(name){
     try{
         await City.destroy({
@@ -19,5 +39,5 @@ async function deleteCity(name){
     }
 }
 module.exports={
-    createCity,deleteCity
+    createCity,deleteCity,updateCity,findCity
 }
