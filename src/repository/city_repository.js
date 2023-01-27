@@ -1,43 +1,57 @@
 const { City }=require("../models/index.js")
-async function createCity(name){
+async function createCity(data){
     try{
-        const city=await City.create({ Name:name });
+        const city=await City.create(data);
+        console.log(city);
         return city;
     } catch(error){
-        console.log("Got error in error handling of createCity");
+        console.log("Got error in repo of createCity");
     }
 }
 async function updateCity(cityId,data){
     try{
-        const object=await City.update(data,{
-            where:{
-                id:cityId
-            }
-        })
-        return object;
+        //The below method doesnt return the object, hence altered code is written below
+        // const object=await City.update(data,{
+        //     where:{
+        //         id:cityId
+        //     }
+        // })
+        // return object;
+        const city=await City.findByPk(cityId,{
+            attributes:['id','Name','createdAt','updatedAt']
+        });
+        city.Name=data.Name;
+        await city.save();
+        return city;
     }catch(error){
-        console.log("Got error in error handling of updateCity")
+        console.log("Got error in repo of updateCity")
     }
 }
-async function findCity(cityId){
+async function getCity(cityId){
     try{
-        const object=await City.findByPk(cityId);
+        const object=await City.findAll({
+            attributes:['id','Name','createdAt','updatedAt'],
+            where:{
+                id:parseInt(cityId)
+            }
+        });
         return object;
     }catch(error){
-        console.log("Got error in error handling of findCity")
+        console.log("Got error in repo of findCity")
     }
 }
-async function deleteCity(name){
+async function deleteCity(cityId){
     try{
         await City.destroy({
             where:{
-                Name:name
+                id:cityId
             }
         });
+        return true;
     } catch(error){
-        console.log("Got error in error handling of deleteCity")
+        console.log("Got error in repo of deleteCity")
     }
 }
 module.exports={
-    createCity,deleteCity,updateCity,findCity
+    createCity,deleteCity,updateCity,getCity
 }
