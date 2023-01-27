@@ -2,7 +2,6 @@ const { City }=require("../models/index.js")
 async function createCity(data){
     try{
         const city=await City.create(data);
-        console.log(city);
         return city;
     } catch(error){
         console.log("Got error in repo of createCity");
@@ -29,11 +28,8 @@ async function updateCity(cityId,data){
 }
 async function getCity(cityId){
     try{
-        const object=await City.findAll({
+        const object=await City.findByPk(cityId,{
             attributes:['id','Name','createdAt','updatedAt'],
-            where:{
-                id:parseInt(cityId)
-            }
         });
         return object;
     }catch(error){
