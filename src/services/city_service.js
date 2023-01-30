@@ -8,6 +8,14 @@ async function createCity(data) {
         console.log("Got error in service layer-create city");
     }
 }
+async function getAllCities(filter){
+    try {
+        const cities=await CityRepository.getAllCities(filter);
+        return cities;
+    } catch (error) {
+        
+    }
+}
 async function deleteCity(cityId) {
     try {
         const result = await CityRepository.deleteCity(cityId);
@@ -24,6 +32,15 @@ async function updateCity(cityId, data) {
         console.log("Got error in service layer-update city");
     }
 }
+async function createManyCities(data){
+    try {
+        console.log(data);
+        const cities=await CityRepository.createMany(data);
+        return cities;
+    } catch (error) {
+        console.log("Got error in service of createMany");
+    }
+}
 async function getCity(cityId) {
     try {
         const result = await CityRepository.getCity(cityId);
@@ -34,5 +51,5 @@ async function getCity(cityId) {
 }
 
 module.exports = {
-    createCity, deleteCity, updateCity, getCity
+    createCity, deleteCity, updateCity, getCity, getAllCities,createManyCities
 }

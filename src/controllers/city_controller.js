@@ -56,6 +56,39 @@ const get=async (req,res)=>{
         })
     }
 }
+
+const createMany=async (req,res)=>{
+    try {
+        const cities=await CityService.createManyCities(req.body);
+        return res.status(200).json({
+            data:cities,
+            success:true,
+            message:"Created many cities"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            data:{},
+            success:false,
+            message:"Cannot create many cities"
+        })
+    }
+}
+const getAll=async (req,res)=>{
+    try {
+        const cities=await CityService.getAllCities(req.query);
+        return res.status(200).json({
+            data:cities,
+            success:true,
+            message:"Fetched all cities"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            data:{},
+            success:false,
+            message:"Not able to fetch cities"
+        })
+    }
+}
 //Patch,/city/id, data in body
 const update=async (req,res)=>{
     try {
@@ -74,5 +107,5 @@ const update=async (req,res)=>{
     }
 }
 module.exports={
-    create,destroy,get,update
+    create,destroy,get,update,getAll,createMany
 }

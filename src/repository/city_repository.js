@@ -1,3 +1,4 @@
+const {Op, QueryInterface}=require("sequelize");
 const { City }=require("../models/index.js")
 async function createCity(data){
     try{
@@ -5,6 +6,38 @@ async function createCity(data){
         return city;
     } catch(error){
         console.log("Got error in repo of createCity");
+    }
+}
+async function getAllCities(filter){
+    try {
+        console.log(filter.Name);
+        if(filter.Name){
+            console.log(filter.Name)
+            const cities=await City.findAll({
+                // attributes:['id','Name','createdAt','updatedAt'],
+                where:{
+                    Name:{
+                        [Op.startsWith]:filter.Name
+                    }
+                }
+            })
+            return cities;
+        }
+        const cities=await City.findAll({
+            // attributes:['id','Name','createdAt','updatedAt']
+        });
+        return cities;
+    } catch (error) {
+        console.log("Got error in repo of getAllCities")
+    }
+}
+
+async function createMany(data){
+    try {
+        const cities=await City.bulkCreate(data)
+        return cities;
+    } catch (error) {
+        console.log("Got error in repo of create many")
     }
 }
 async function updateCity(cityId,data){
@@ -17,7 +50,7 @@ async function updateCity(cityId,data){
         // })
         // return object;
         const city=await City.findByPk(cityId,{
-            attributes:['id','Name','createdAt','updatedAt']
+            // attributes:['id','Name','createdAt','updatedAt']
         });
         city.Name=data.Name;
         await city.save();
@@ -29,7 +62,7 @@ async function updateCity(cityId,data){
 async function getCity(cityId){
     try{
         const object=await City.findByPk(cityId,{
-            attributes:['id','Name','createdAt','updatedAt'],
+            // attributes:['id','Name','createdAt','updatedAt'],
         });
         return object;
     }catch(error){
@@ -49,5 +82,5 @@ async function deleteCity(cityId){
     }
 }
 module.exports={
-    createCity,deleteCity,updateCity,getCity
+    createCity,deleteCity,updateCity,getCity,getAllCities,createMany
 }
