@@ -16,4 +16,5 @@ router.get("/airport/:id",airportcontroller.get)
 router.get("/manyairports",airportcontroller.getAll)
 router.delete("/airport/:id",airportcontroller.destroy)
 router.patch("/airport/:id",airportcontroller.update);
+router.get("/airportsofcity/:id",airportcontroller.airportofCity)
 module.exports=router;   

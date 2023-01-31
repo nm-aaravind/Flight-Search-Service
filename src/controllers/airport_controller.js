@@ -14,6 +14,21 @@ const create=async (req,res)=>{
         })
     }
 }
+const airportofCity=async (req,res)=>{
+    try {
+        const airports=await AirportService.airportOfCity(req.params.id)
+        return res.status(200).json({
+            data:airports,
+            success:true,
+            message:"Got airports of city"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Canot fetch airports of city"
+        })
+    }
+}
 const destroy=async (req,res)=>{
     try {
         const response=await AirportService.deleteAirport(req.params.id)
@@ -74,5 +89,5 @@ const getAll=async (req,res)=>{
     }
 }
 module.exports={
-    create,destroy,get,getAll,update
+    create,destroy,get,getAll,update,airportofCity
 }

@@ -24,6 +24,14 @@ async function deleteAirport(airportId){
         console.log("Got error in service of deleteairport")
     }
 }
+async function airportOfCity(cityId){
+    try {
+        const airports=await AirportRepository.airportsOfCity(cityId);
+        return airports;
+    } catch (error) {
+        console.log("Got error in service of airportsofcity")
+    }
+}
 async function getAirport(airportId){
     try {
         const airport=await AirportRepository.getAirport(airportId);
@@ -41,5 +49,5 @@ async function getAllAirports(filter){
     }
 }
 module.exports={
-    createAirport,updateAirport,deleteAirport,getAirport,getAllAirports
+    createAirport,updateAirport,deleteAirport,getAirport,getAllAirports,airportOfCity
 }
