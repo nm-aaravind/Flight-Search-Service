@@ -12,9 +12,7 @@ const createAndSetupServer=async () => {
     app.use("/api",apiRouter);
     app.listen(3000,async ()=>{
         console.log("Server started with PORT",PORT);
-        // if(process.env.SYNC_DB){
-        //     db.sequelize.sync({alter:true})
-        // }
+        db.sequelize.sync({alter:true})
     })
 }
 createAndSetupServer();
