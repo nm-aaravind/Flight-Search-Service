@@ -3,7 +3,7 @@ const router=express.Router();
 const cityController=require("../../controllers/city_controller")
 const airportcontroller=require("../../controllers/airport_controller")
 const flightcontroller=require("../../controllers/flight_controller")
-
+const {FlightMiddleware}=require("../../middlewares/index")
 
 router.post("/cities",cityController.create);
 router.delete("/cities/:id",cityController.destroy)
@@ -19,6 +19,6 @@ router.delete("/airports/:id",airportcontroller.destroy)
 router.patch("/airports/:id",airportcontroller.update);
 router.get("/airportsofcity/:id",airportcontroller.airportofCity)
 
-router.post("/flights",flightcontroller.create)
+router.post("/flights",FlightMiddleware.validateCreateFlight,flightcontroller.create)
 router.get("/flights",flightcontroller.getAllFlights)
 module.exports=router;   
