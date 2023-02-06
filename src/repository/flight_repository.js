@@ -38,13 +38,24 @@ class FlightRepository {
     async getAllFlights(filter) {
         try {
             let filterObject=this.#createFilter(filter);
-            console.log(filterObject)
             const flights=await Flight.findAll({
                 where:filterObject
             });
             return flights;
         } catch (error) {
             console.log("Got error repo of getallflights")
+        }
+    }
+    async updateFlight(flightId,data){
+        try {
+            await Flight.update(data,{
+                where:{
+                    id:flightId
+                }
+            })
+            return true;
+        } catch (error) {
+            console.log("Got error in update flight repo")
         }
     }
 }

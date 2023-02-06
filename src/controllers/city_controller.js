@@ -1,5 +1,6 @@
 //This file is used to communicate with city service
 const { CityService }=require("../services/index")
+const {SuccessCodes}=require("../utils/error_codes")
 //segragate all the middlewares at one place. controllers at one place, routes in one place.
 //Controller is also a type of final middleware.
 
@@ -7,7 +8,7 @@ const { CityService }=require("../services/index")
 const create=async (req,res)=>{
     try {
         const city=await CityService.createCity(req.body);
-        return res.status(201).json({
+        return res.status(SuccessCodes.OK).json({
             data:city,
             success:true,
             message:"Successfully created city"
@@ -25,7 +26,7 @@ const create=async (req,res)=>{
 const destroy=async (req,res)=>{
     try {
         const city=await CityService.deleteCity(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data:city,
             success:true,
             message:"Deleted city"
@@ -43,7 +44,7 @@ const destroy=async (req,res)=>{
 const get=async (req,res)=>{
     try {
         const city=await CityService.getCity(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data: city,
             success: true,
             message: "Fetched city"
@@ -60,7 +61,7 @@ const get=async (req,res)=>{
 const createMany=async (req,res)=>{
     try {
         const cities=await CityService.createManyCities(req.body);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data:cities,
             success:true,
             message:"Created many cities"
@@ -76,7 +77,7 @@ const createMany=async (req,res)=>{
 const getAll=async (req,res)=>{
     try {
         const cities=await CityService.getAllCities(req.query);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data:cities,
             success:true,
             message:"Fetched all cities"
@@ -93,7 +94,7 @@ const getAll=async (req,res)=>{
 const update=async (req,res)=>{
     try {
         const city=await CityService.updateCity(req.params.id,req.body);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data: city,
             success: true,
             message: "Updated city"
